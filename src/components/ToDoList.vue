@@ -2,6 +2,7 @@
 import AddButton from "./AddButton.vue";
 import { ref, onMounted, computed, watch } from "vue";
 import Button from "./Button.vue";
+import { InitItems } from "../helpers/InitItems";
 import { CheckIcon, MinusCircleIcon, PencilSquareIcon, MagnifyingGlassIcon, AdjustmentsHorizontalIcon, ArrowsUpDownIcon } from "@heroicons/vue/24/solid";
 const tasks = ref<{ title: string; description: string; status: string, date: string, id: number, isDone?: boolean }[]>([]);
 const isFormOpen = ref(false);
@@ -32,6 +33,9 @@ onMounted(() => {
   const savedTasks = localStorage.getItem("tasks");
   if (savedTasks) {
     tasks.value = JSON.parse(savedTasks);
+  }
+  if(tasks.value.length === 0) {
+    tasks.value = InitItems;
   }
 });
 
@@ -137,7 +141,7 @@ const swapFinishTask = (taskId: number) => {
 </script>
 
 <template>
-  <div class="mx-auto max-w-4xl p-4">
+  <div class="mx-auto max-w-3xl p-4">
     <h1 class="text-3xl font-bold text-center mt-8">To Do List</h1>
 
     <div class="mt-4 flex flex-col md:flex-row md:items-center md:space-x-4 space-y-4 md:space-y-0">
@@ -187,7 +191,7 @@ const swapFinishTask = (taskId: number) => {
       >
         <div
           class="p-4 rounded-lg mb-4 border border-gray-400 flex justify-between items-center gap-4"
-          :class="{'bg-stone-500 opacity-90': task.isDone }"
+          :class="{'bg-rose-300 opacity-100': task.isDone }"
         >
           <div
             class="flex gap-4 items-center"
@@ -197,7 +201,7 @@ const swapFinishTask = (taskId: number) => {
               @click="swapFinishTask(task.id)"
             >
               <CheckIcon
-                class="text-inherit pl-0.5"
+                class="text-inherit"
                 :class="{
                   'group-hover:hidden': task.isDone,
                   'hidden group-hover:block': !task.isDone
