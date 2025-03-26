@@ -191,7 +191,7 @@ const swapFinishTask = (taskId: number) => {
       >
         <div
           class="p-4 rounded-lg mb-4 border border-gray-400 flex justify-between items-center gap-4"
-          :class="{'bg-rose-300 opacity-100': task.isDone }"
+          :class="{'border-red-400 opacity-100': task.isDone }"
         >
           <div
             class="flex gap-4 items-center"
