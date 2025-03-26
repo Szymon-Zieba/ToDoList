@@ -3,7 +3,7 @@ import AddButton from "./AddButton.vue";
 import { ref, onMounted, computed, watch } from "vue";
 import Button from "./Button.vue";
 import { CheckIcon, MinusCircleIcon, PencilSquareIcon, MagnifyingGlassIcon, AdjustmentsHorizontalIcon, ArrowsUpDownIcon } from "@heroicons/vue/24/solid";
-const tasks = ref<{ title: string; description: string; status: string, date: string }[]>([]);
+const tasks = ref<{ title: string; description: string; status: string, date: string, id: number, isDone?: boolean }[]>([]);
 const isFormOpen = ref(false);
 const closeForm = () => isFormOpen.value = false;
 const isFormEditOpen = ref(false);
@@ -68,7 +68,7 @@ const resetForm = () => {
   currentTaskIndex.value = null;
 };
 
-const addTask = (id) => {
+const addTask = (id: number | Event) => {
   isSubmitted.value = true;
   if (!validateForm()) return;
 
